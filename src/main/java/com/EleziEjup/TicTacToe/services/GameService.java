@@ -35,9 +35,22 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public Page<Game> getGames(int page, int size){
+    public Page<Game> getGames(int page, int size,String username,String status, String before, String after) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dateTime").descending());
-        return gameRepository.findAll(pageable);
+        GameStatus gameStatus = null;
+        if(status != null) {
+            gameStatus = GameStatus.valueOf(status);
+        }
+        LocalDateTime beforeDate = null;
+        if (before != null) {
+            beforeDate = LocalDateTime.parse(before);
+        }
+
+        LocalDateTime afterDate = null;
+        if (after != null) {
+            afterDate = LocalDateTime.parse(after);
+        }
+        return gameRepository.filterGames(username,gameStatus,beforeDate,afterDate,pageable);
     }
 
     public Game joinGame(int gameId, String username){

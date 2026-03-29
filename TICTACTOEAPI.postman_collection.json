@@ -1,0 +1,725 @@
+{
+  "info": {
+    "_postman_id": "f5711efd-f7b3-489e-88e9-9c6681bd7b92",
+    "name": "TICTACTOEAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38987901"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n      \"username\": \"Ejup\",\r\n      \"password\": \"123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register P2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n      \"username\": \"Looser\",\r\n      \"password\": \"123\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{                               \r\n      \"username\": \"Ejup\",                                                                                                                                                                        \r\n      \"password\": \"123\"                   \r\n  }  ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create new game",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login P2",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{                               \r\n      \"username\": \"Looser\",                                                                                                                                                                        \r\n      \"password\": \"123\"                   \r\n  }  ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Join game P2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMb29zZXIiLCJpYXQiOjE3NzQ4MTYwNDMsImV4cCI6MTc3NDkwMjQ0M30.CA8gaXj4xh22R7I3R2pw7aoMa3LljjWBjIS27ExVzEM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/join",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "join"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Make move 0",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/move?position=0",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "move"
+          ],
+          "query": [
+            {
+              "key": "position",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Make move 1 P2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMb29zZXIiLCJpYXQiOjE3NzQ4MTYwNDMsImV4cCI6MTc3NDkwMjQ0M30.CA8gaXj4xh22R7I3R2pw7aoMa3LljjWBjIS27ExVzEM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/move?position=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "move"
+          ],
+          "query": [
+            {
+              "key": "position",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Make move 2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/move?position=3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "move"
+          ],
+          "query": [
+            {
+              "key": "position",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Make move 3 P2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMb29zZXIiLCJpYXQiOjE3NzQ4MTYwNDMsImV4cCI6MTc3NDkwMjQ0M30.CA8gaXj4xh22R7I3R2pw7aoMa3LljjWBjIS27ExVzEM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/move?position=2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "move"
+          ],
+          "query": [
+            {
+              "key": "position",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Make winning move",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/move?position=6",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "move"
+          ],
+          "query": [
+            {
+              "key": "position",
+              "value": "6"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Full game details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Board state",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games/1/board",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games",
+            "1",
+            "board"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users/Ejup",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "Ejup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get P2 profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMb29zZXIiLCJpYXQiOjE3NzQ4MTYwNDMsImV4cCI6MTc3NDkwMjQ0M30.CA8gaXj4xh22R7I3R2pw7aoMa3LljjWBjIS27ExVzEM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/users/Looser",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "Looser"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create new game P2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMb29zZXIiLCJpYXQiOjE3NzQ4MTYwNDMsImV4cCI6MTc3NDkwMjQ0M30.CA8gaXj4xh22R7I3R2pw7aoMa3LljjWBjIS27ExVzEM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Paginated list of games",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games?username=Ejup",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "Ejup"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by status",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games?status=OPEN",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "OPEN"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter before date",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games?before=2026-03-29T23:59:59",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "before",
+              "value": "2026-03-29T23:59:59"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter after date",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games?after=2026-01-01T00:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "after",
+              "value": "2026-01-01T00:00:00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter combo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFanVwIiwiaWF0IjoxNzc0ODE2MDIwLCJleHAiOjE3NzQ5MDI0MjB9._riO7MroKJJKIP19yoIbGcf6kpfEqBho7wTjOM0UYxM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/games?username=Ejup&status=FINISHED",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "games"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "Ejup"
+            },
+            {
+              "key": "status",
+              "value": "FINISHED"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
