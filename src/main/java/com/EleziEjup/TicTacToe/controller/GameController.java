@@ -29,4 +29,20 @@ public class GameController {
     public Game joinGame(@PathVariable int id, Principal principal) {
         return gameService.joinGame(id, principal.getName());
     }
+
+    @GetMapping("/{id}/board")
+    public String getBoardState(@PathVariable int id){
+        return gameService.getBoardState(id);
+    }
+
+    //It made sense to have an endpoint that includes full game details and not just board state but since assignment wasnt explicit whether displaying additional data is okay or not,so i added both endpoints.
+    @GetMapping("/{id}")
+    public Game getGame(@PathVariable int id){
+        return gameService.getGame(id);
+    }
+
+    @PostMapping("/{id}/move")
+    public Game move(@PathVariable int id, @RequestParam int position, Principal principal) {
+        return gameService.move(id, principal.getName(), position);
+    }
 }

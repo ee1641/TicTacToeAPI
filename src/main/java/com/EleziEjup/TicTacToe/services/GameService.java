@@ -56,4 +56,71 @@ public class GameService {
 
         return gameRepository.save(game);
     }
+
+    public String getBoardState(int gameId){
+        Game game = gameRepository.findById(gameId).orElseThrow();
+        return game.getBoard();
+    }
+
+    public Game getGame(int gameId){
+        return gameRepository.findById(gameId).orElseThrow();
+    }
+
+    private boolean hasWinner(String board, char symbol){
+        int[][] combinations = {{0,1,2},{3,4,5},{6,7,8},{0,4,8},{2,4,6},{0,3,6},{1,4,7},{2,5,8}};
+
+        for(int[] combination : combinations){
+            if(board.charAt(combination[0]) == symbol && board.charAt(combination[1]) == symbol && board.charAt(combination[2]) == symbol){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Game move(int gameId, String username, int position){
+        Game game = gameRepository.findById(gameId).orElseThrow();
+        char symbol;
+
+        if(!game.getStatus().equals(GameStatus.IN_PROGRESS)){
+            throw new RuntimeException("Game is not in progress");
+        }
+
+        if(!game.getCurrentTurn().getUsername().equals(username)){
+            throw new RuntimeException("It is not your turn");
+        }
+
+        if (position < 0 || position > 8) {
+            throw new RuntimeException("Choose a valid position");
+        }
+
+        if (game.getBoard().charAt(position) != '.') {
+            throw new RuntimeException("Position taken");
+        }
+
+        if(game.getPlayerX().getUsername().equals(username)){
+            symbol = 'X';
+        }else{
+            symbol = 'O';
+        }
+
+        StringBuilder board = new  StringBuilder(game.getBoard());
+        board.setCharAt(position,symbol);
+        game.setBoard(board.toString());
+
+        if(hasWinner(game.getBoard(),symbol)){
+            User winner = userRepository.findByUsername(username).orElseThrow();
+            game.setWinner(winner);
+            game.setStatus(GameStatus.FINISHED);
+        } else if (!game.getBoard().contains(".")) {
+            game.setStatus(GameStatus.FINISHED);
+        }else{
+            if(game.getPlayerX().getUsername().equals(username)){
+                game.setCurrentTurn(game.getPlayerO());
+            }else{
+                game.setCurrentTurn(game.getPlayerX());
+            }
+        }
+
+        return gameRepository.save(game);
+    }
 }
