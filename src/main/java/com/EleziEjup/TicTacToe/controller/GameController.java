@@ -21,8 +21,13 @@ public class GameController {
     }
 
     @GetMapping
-    public Page<Game> getGames(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10")int size) {
-        return gameService.getGames(page, size);
+    public Page<Game> getGames(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10")int size,
+                               @RequestParam(required = false) String username,
+                               @RequestParam(required = false) String status,
+                               @RequestParam(required = false) String before,
+                               @RequestParam(required = false) String after) {
+        return gameService.getGames(page, size, username, status, before, after);
     }
 
     @PostMapping("/{id}/join")
