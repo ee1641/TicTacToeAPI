@@ -1,7 +1,9 @@
 package com.EleziEjup.TicTacToe.services;
 
 import com.EleziEjup.TicTacToe.data.entity.User;
+import com.EleziEjup.TicTacToe.data.repository.GameRepository;
 import com.EleziEjup.TicTacToe.data.repository.UserRepository;
+import com.EleziEjup.TicTacToe.dto.UserDto;
 import com.EleziEjup.TicTacToe.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,8 +19,12 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     public User register(String username, String password) {
         if (userRepository.findByUsername(username).isPresent()) {
@@ -43,6 +49,27 @@ public class UserService {
         }
 
         return jwtService.generateToken(username);
+    }
+
+    public UserDto getProfile(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        int gamesPlayed = gameRepository.countByPlayerXOrPlayerO(user,user);
+        int wins = gameRepository.countByWinner(user);
+
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setGamesPlayed(gamesPlayed);
+
+        int winrate;
+        if (gamesPlayed != 0){
+            winrate = (wins * 100) /  gamesPlayed;
+        }else {
+            winrate = 0;
+        }
+
+        userDto.setWinRate(winrate);
+        return userDto;
     }
 
 }

@@ -1,11 +1,10 @@
 package com.EleziEjup.TicTacToe.controller;
 
 import com.EleziEjup.TicTacToe.dto.AuthDto;
+import com.EleziEjup.TicTacToe.dto.UserDto;
 import com.EleziEjup.TicTacToe.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -27,5 +26,9 @@ public class UserController {
         return userService.login(user.getUsername(), user.getPassword());
     }
 
+    @GetMapping("/users/{username}")
+    public UserDto getProfile(@PathVariable String username){
+        return userService.getProfile(username);
+    }
 
 }
