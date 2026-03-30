@@ -5,6 +5,7 @@ import com.EleziEjup.TicTacToe.data.repository.GameRepository;
 import com.EleziEjup.TicTacToe.data.repository.UserRepository;
 import com.EleziEjup.TicTacToe.dto.UserDto;
 import com.EleziEjup.TicTacToe.exception.BadRequestException;
+import com.EleziEjup.TicTacToe.exception.ConflictException;
 import com.EleziEjup.TicTacToe.exception.NotFoundException;
 import com.EleziEjup.TicTacToe.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +30,7 @@ public class UserService {
 
     public User register(String username, String password) {
         if (userRepository.findByUsername(username).isPresent()) {
-            return null;
+            throw new ConflictException("Username already exists");
         }
 
         User user = new User();
