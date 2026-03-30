@@ -35,10 +35,6 @@ public class JwtService {
                 .getSubject();
     }
 
-    public boolean isTokenValid(String token, String username) {
-        return extractUsername(token).equals(username);
-    }
-
     private SecretKey getSigningKey() {
         byte[] keyBytes = SECRET_KEY.getBytes();
         return Keys.hmacShaKeyFor(keyBytes);
