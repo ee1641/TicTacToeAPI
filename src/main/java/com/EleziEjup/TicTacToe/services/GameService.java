@@ -5,7 +5,10 @@ import com.EleziEjup.TicTacToe.data.entity.User;
 import com.EleziEjup.TicTacToe.data.enums.GameStatus;
 import com.EleziEjup.TicTacToe.data.repository.GameRepository;
 import com.EleziEjup.TicTacToe.data.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.EleziEjup.TicTacToe.exception.BadRequestException;
+import com.EleziEjup.TicTacToe.exception.ConflictException;
+import com.EleziEjup.TicTacToe.exception.ForbiddenException;
+import com.EleziEjup.TicTacToe.exception.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,18 +16,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 @Service
 public class GameService {
+    private final GameRepository gameRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private GameRepository gameRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    public GameService(GameRepository gameRepository, UserRepository userRepository) {
+        this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
+    }
 
     public Game createGame(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
 
         Game game = new Game();
         game.setPlayerX(user);
@@ -39,29 +46,45 @@ public class GameService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dateTime").descending());
         GameStatus gameStatus = null;
         if(status != null) {
-            gameStatus = GameStatus.valueOf(status);
+            try {
+                gameStatus = GameStatus.valueOf(status);
+            }catch (IllegalArgumentException e) {
+                throw new BadRequestException("Invalid status");
+            }
         }
         LocalDateTime beforeDate = null;
         if (before != null) {
-            beforeDate = LocalDateTime.parse(before);
+            try {
+                beforeDate = LocalDateTime.parse(before);
+            }catch (DateTimeParseException e) {
+                throw new BadRequestException("Invalid date");
+            }
         }
 
         LocalDateTime afterDate = null;
         if (after != null) {
-            afterDate = LocalDateTime.parse(after);
+            try{
+                afterDate = LocalDateTime.parse(after);
+            }catch (DateTimeParseException e) {
+                throw new BadRequestException("Invalid date");
+            }
         }
         return gameRepository.filterGames(username,gameStatus,beforeDate,afterDate,pageable);
     }
 
     public Game joinGame(int gameId, String username){
-        Game game = gameRepository.findById(gameId).orElseThrow();
+        Game game = gameRepository.findById(gameId).orElseThrow(
+                () -> new NotFoundException("Game not found")
+        );
         if(!game.getStatus().equals(GameStatus.OPEN)){
-            throw new RuntimeException("Game is not open");
+            throw new ConflictException("Game is not open");
         }
 
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
         if(game.getPlayerX().getUsername().equals(username)){
-            throw new RuntimeException("Cannot join ur own game");
+            throw new ForbiddenException("Cannot join ur own game");
         }
 
         game.setPlayerO(user);
@@ -71,12 +94,16 @@ public class GameService {
     }
 
     public String getBoardState(int gameId){
-        Game game = gameRepository.findById(gameId).orElseThrow();
+        Game game = gameRepository.findById(gameId).orElseThrow(
+                () -> new NotFoundException("Game not found")
+        );
         return game.getBoard();
     }
 
     public Game getGame(int gameId){
-        return gameRepository.findById(gameId).orElseThrow();
+        return gameRepository.findById(gameId).orElseThrow(
+                () -> new NotFoundException("Game not found")
+        );
     }
 
     private boolean hasWinner(String board, char symbol){
@@ -90,38 +117,46 @@ public class GameService {
         return false;
     }
 
-    public Game move(int gameId, String username, int position){
-        Game game = gameRepository.findById(gameId).orElseThrow();
+    public char getSymbol(Game game, String username){
         char symbol;
-
-        if(!game.getStatus().equals(GameStatus.IN_PROGRESS)){
-            throw new RuntimeException("Game is not in progress");
-        }
-
-        if(!game.getCurrentTurn().getUsername().equals(username)){
-            throw new RuntimeException("It is not your turn");
-        }
-
-        if (position < 0 || position > 8) {
-            throw new RuntimeException("Choose a valid position");
-        }
-
-        if (game.getBoard().charAt(position) != '.') {
-            throw new RuntimeException("Position taken");
-        }
-
         if(game.getPlayerX().getUsername().equals(username)){
             symbol = 'X';
         }else{
             symbol = 'O';
         }
 
+        return symbol;
+    }
+
+    public Game move(int gameId, String username, int position){
+        Game game = gameRepository.findById(gameId).orElseThrow(
+                () -> new NotFoundException("Game not found")
+        );
+
+        if(!game.getStatus().equals(GameStatus.IN_PROGRESS)){
+            throw new ConflictException("Game is not in progress");
+        }
+
+        if(!game.getCurrentTurn().getUsername().equals(username)){
+            throw new ForbiddenException("It is not your turn");
+        }
+
+        if (position < 0 || position > 8) {
+            throw new BadRequestException("Choose a valid position");
+        }
+
+        if (game.getBoard().charAt(position) != '.') {
+            throw new BadRequestException("Position taken");
+        }
+
         StringBuilder board = new  StringBuilder(game.getBoard());
-        board.setCharAt(position,symbol);
+        board.setCharAt(position,getSymbol(game,username));
         game.setBoard(board.toString());
 
-        if(hasWinner(game.getBoard(),symbol)){
-            User winner = userRepository.findByUsername(username).orElseThrow();
+        if(hasWinner(game.getBoard(),getSymbol(game,username))){
+            User winner = userRepository.findByUsername(username).orElseThrow(
+                    () -> new NotFoundException("User not found")
+            );
             game.setWinner(winner);
             game.setStatus(GameStatus.FINISHED);
         } else if (!game.getBoard().contains(".")) {
